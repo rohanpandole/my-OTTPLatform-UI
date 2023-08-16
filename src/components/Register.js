@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const email_REGEX =/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const phoneNumber_REGEX =/^[+]{1}(?:[0-9\\-\\(\\)\\/\\.]\\s?){6, 15}[0-9]{1}$/;
+const email_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const phoneNumber_REGEX = /^[+]{1}(?:[0-9\\-\\(\\)\\/\\.]\\s?){6, 15}[0-9]{1}$/;
 const REGISTER_URL = '/Auth/Register';
 
 const Register = () => {
@@ -21,11 +21,11 @@ const Register = () => {
     const [Password, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
-        
+
     const [email, setemail] = useState('');
     const [validemail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
-    
+
     const [phoneNumber, setphoneNumber] = useState('');
     const [validPhoneNumber, setValidPhoneNumber] = useState(false);
     const [phoneNumberFocus, setPhoneNumberFocus] = useState(false);
@@ -75,10 +75,12 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ 'UserName':UserName, 
-                    'Password':Password, 
-                    'email':email, 
-                    'phoneNumber':phoneNumber }),
+                JSON.stringify({
+                    'UserName': UserName,
+                    'Password': Password,
+                    'email': email,
+                    'phoneNumber': phoneNumber
+                }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -188,7 +190,7 @@ const Register = () => {
                         </p>
 
                         <label htmlFor="email">
-                        Email:
+                            Email:
                             <FontAwesomeIcon icon={faCheck} className={validemail ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validemail || !email ? "hide" : "invalid"} />
                         </label>
@@ -213,7 +215,7 @@ const Register = () => {
                         </p>
 
                         <label htmlFor="phoneNumber">
-                        PhoneNumber:
+                            PhoneNumber:
                         </label>
                         <input
                             type="text"

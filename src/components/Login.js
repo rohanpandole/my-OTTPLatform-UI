@@ -39,14 +39,13 @@ const Login = () => {
                 }
             );
             localStorage.setItem("userToken", JSON.stringify(response.data.AccessToken));
-            
+
             const accessToken = response?.data?.AccessToken;
 
-           setAuth({ userName, password, accessToken });
+            setAuth({ userName, password, accessToken });
             setUser('');
             setPwd('');
-           //navigate(from, { replace: true });
-           navigate("/");
+            navigate("/");
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -63,38 +62,38 @@ const Login = () => {
 
     return (
         <>
-        <section>
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
-                    value={userName}
-                    required
-                />
+            <section>
+                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                <h1>Sign In</h1>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={userName}
+                        required
+                    />
 
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)}
-                    value={password}
-                    required
-                />
-                <button>Sign In</button>
-            </form>
-            <p>
-                Need an Account?<br />
-                <span className="line">
-                    <Link to="/register">Sign Up</Link>
-                </span>
-            </p>
-        </section>
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={password}
+                        required
+                    />
+                    <button>Sign In</button>
+                </form>
+                <p>
+                    Need an Account?<br />
+                    <span className="line">
+                        <Link to="/register">Sign Up</Link>
+                    </span>
+                </p>
+            </section>
         </>
     )
 }
