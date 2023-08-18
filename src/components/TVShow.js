@@ -24,13 +24,14 @@ const Lounge = () => {
     const searchTVShow = async (e) => {
         e.preventDefault();
 
-        let token3 = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
+        let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
         const config = {
-            headers: { Authorization: token3 }
-
+            headers: { Authorization: token },
+            params: { tvShowName : tvShowName } 
         };
 
-        const response = await axios.get(GetTVshow_URL, { params: { "tvShowName": tvShowName } },
+        const response = await axios.get(
+            GetTVshow_URL,
             config
         );
         console.log(response?.data);
@@ -44,16 +45,14 @@ const Lounge = () => {
         e.preventDefault();
         setFlag(true);
 
-        let token2 = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
+        let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
 
         const config = {
-            headers: { Authorization: token2 }
-        };
-        const bodyParameters = {
-            key: "value"
+            headers: { Authorization: token }
         };
 
-        const response = await axios.get(OTTPlatform_URL,
+        const response = await axios.get(
+            OTTPlatform_URL,
             config
         );
         console.log(response?.data);

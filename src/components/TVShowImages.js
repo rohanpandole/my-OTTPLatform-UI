@@ -1,18 +1,33 @@
-import a1 from '../Images/a1.jpg';
-import a2 from '../Images/a2.jpg';
-import a3 from '../Images/a3.jpg';
-import a4 from '../Images/a4.jpg';
-import a5 from '../Images/a5.jpg';
-import a6 from '../Images/a6.jpg';
-import a7 from '../Images/a7.jpg';
 import React, {useState} from 'react';
 import { Modal,Button} from 'react-bootstrap';
+import axios from '../Utility/axios';
+import {useNavigate} from 'react-router-dom';
 
-const TVShowImages =({Title, Description, tvShowImage}) =>{
-
+const TVShowImages =({ShowId, Title, Description, tvShowImage}) =>{
+    const removeTvShow_URL = '/Admin/DeleteTvShowById';
     const [show, setShow]=useState(false);
     const handleShow=()=>setShow(true);
-    const handleClose=()=>setShow(false);
+    const navigate = useNavigate();
+    const handleClose=()=>{
+        setRecordDeleted('');
+        setShow(false);
+        navigate("/TVshown");
+    }
+    const [recordDeleted, setRecordDeleted]=useState('');    
+    const removeTVShow = async (e) =>{
+        e.preventDefault();
+        let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
+        const config = {
+            headers: { Authorization: token },
+            params: { "showId": ShowId }
+        };
+        
+        const response = await axios.delete(
+            removeTvShow_URL,
+            config
+        );
+        setRecordDeleted(response?.data);
+    };
     return(
 
 <>
@@ -30,7 +45,9 @@ const TVShowImages =({Title, Description, tvShowImage}) =>{
           <h3>{Title}</h3>
           <p>{Description}</p>
           </Modal.Body>
+          {recordDeleted && ( <h1>{recordDeleted}</h1>)}
           <Modal.Footer>
+              <Button variant="secondary" onClick={removeTVShow}>Remove Show</Button>
               <Button variant="secondary" onClick={handleClose}>Close</Button>
           </Modal.Footer>
       </Modal>
