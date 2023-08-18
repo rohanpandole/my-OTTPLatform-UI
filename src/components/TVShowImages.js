@@ -8,30 +8,17 @@ import a7 from '../Images/a7.jpg';
 import React, {useState} from 'react';
 import { Modal,Button} from 'react-bootstrap';
 
-
-const TVShowImages =({Title, Description, imagePath}) =>{
+const TVShowImages =({Title, Description, tvShowImage}) =>{
 
     const [show, setShow]=useState(false);
-
     const handleShow=()=>setShow(true);
     const handleClose=()=>setShow(false);
-
-    let result ='';
-    imagePath === "a1" 
-    ? result= a1 : imagePath === 'a2'
-    ? result=a2 : imagePath === 'a3' 
-    ? result=a3 : imagePath === 'a4' 
-    ? result=a4 : imagePath === 'a5' 
-    ? result=a5 : imagePath === 'a6' 
-    ? result=a6 : imagePath === 'a7'
-    ? result=a7:'';
-
     return(
 
 <>
 <div className="card text-center bg-secondary mb-3">
 <div className="card-body">
-  <img className="card-img-top" src={result} />
+  <img className="card-img-top" src={tvShowImage} />
   <div className="card-body">
       <button type="button" className="btn btn-dark" onClick={handleShow} >View More</button>
       <Modal show={show} onHide={handleClose}>
@@ -39,7 +26,7 @@ const TVShowImages =({Title, Description, imagePath}) =>{
             <Modal.Title></Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <img className="card-img-top" style={{width:'14rem'}}src={result} />
+          <img className="card-img-top" style={{width:'14rem'}}src={tvShowImage} />
           <h3>{Title}</h3>
           <p>{Description}</p>
           </Modal.Body>
@@ -50,8 +37,8 @@ const TVShowImages =({Title, Description, imagePath}) =>{
   </div>
 </div>
 </div>
-</>
-       
+</>  
+
     )
 }
 
