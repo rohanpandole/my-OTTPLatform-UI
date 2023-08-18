@@ -8,12 +8,12 @@ import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstr
 
 const OTTPlatform_URL = '/User/GetAllTvShow';
 const GetTVshow_URL = '/User/GetTvShowByName';
+const saveImage_URL = '/Admin/UploadImage'
 
 const Lounge = () => {
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
     const [TvShows, setTvShows] = useState([]);
-    const [flag, setFlag] = useState(false);
     const [tvShowName, setTvShowName] = useState('');
 
     const logout = async () => {
@@ -43,7 +43,6 @@ const Lounge = () => {
 
     const getTVShowList = async (e) => {
         e.preventDefault();
-        setFlag(true);
 
         let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
 
@@ -61,6 +60,25 @@ const Lounge = () => {
 
     const changeHandler = (e) => {
         setTvShowName(e.target.value);
+    }
+
+    const handleImage = async (e) =>{
+        e.preventDefault();
+
+        var fileData = e.target.files[0];
+        const data = new FormData();
+        data.append('img',fileData);
+
+        let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
+        const config = {
+            headers: { Authorization: token, 'Content-Type': 'multipart/form-data' }
+        };
+
+        const response = await axios.post(
+            saveImage_URL,
+            data,
+            config
+        );
     }
 
     return (
@@ -92,6 +110,7 @@ const Lounge = () => {
                 <button onClick={getTVShowList}>TV shows</button>
                 <Link to="/">Go To Home</Link>
                 <button onClick={logout}>Sign Out</button>
+                <input type='file' onChange={(e) => handleImage(e)}/>
             </div>
 
             <div >
