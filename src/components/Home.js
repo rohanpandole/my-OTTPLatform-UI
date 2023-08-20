@@ -8,22 +8,52 @@ const Home = () => {
 
     const logout = async () => {
         setAuth({});
+        navigate('/login');
+    }
+    const addTvShow = async () => {
+        navigate('/addTvShow');
+    }
+    const navigateTo = async () => {
         navigate('/linkpage');
+    }
+    const tvShows = async () => {
+        navigate('/tvShown');
+    }
+
+    const serachTvShow = async () =>{
+        navigate('/serachTvShow');
     }
 
     return (
-        <section>
-            <h1>Home</h1>
-            <br />
-            <p>You are logged in!</p>
-            <br />
-            <Link to="/TVshown">TV shows</Link>
-            <br />
-            <Link to="/linkpage">Navigate to other</Link>
-            <div className="flexGrow">
-                <button onClick={logout}>Sign Out</button>
+        <>
+
+            <div class="container">
+                <div class="row align-items-start">
+                    <div class="col-sm">
+                        <h1 style={{ color: 'antiquewhite' }}>Home   </h1>
+                    </div>
+                    <div class="col-sm">
+                        <button onClick={tvShows}>TV shows   </button>
+                    </div>
+                    <div class="col-sm">
+                        <button onClick={navigateTo}>Navigate link</button>
+                    </div>
+                    <div class="col-sm">
+                        <button onClick={addTvShow}>Add Tv Show</button>
+                    </div>
+                    <div class="col-sm">
+                        <button onClick={logout}>Sign Out</button>
+                    </div>
+                    <div class="col-sm">
+                        <button onClick={serachTvShow}>Serach Tv Show's</button>
+                    </div>
+                </div>
             </div>
-        </section>
+
+            <br />
+            <p style={{ color: 'chartreuse' }}>You are logged in!</p>
+        
+        </>
     )
 }
 

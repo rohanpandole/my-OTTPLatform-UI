@@ -7,7 +7,9 @@ import Unauthorized from './components/Unauthorized';
 import Lounge from './components/TVShow';
 import LinkPage from './components/LinkPage';
 import RequireAuth from './components/RequireAuth';
+import AddTvShow from './components/AddTvShow';
 import { Routes, Route } from 'react-router-dom';
+import SerachTvShow from './components/SerachTvShow';
 
 function App() {
 
@@ -23,7 +25,9 @@ function App() {
         {/* protected routes */}
         <Route element ={<RequireAuth />}>
         <Route path="/" element={<Home />} />
-        <Route path="TVshown" element={<Lounge />} />
+        <Route path="tvShown" element={<Lounge />} />
+        <Route path="addTvShow" element={<AddTvShow />} />
+        <Route path="serachTvShow" element={<SerachTvShow />} />
         </Route>
 
         {/* catch all */}

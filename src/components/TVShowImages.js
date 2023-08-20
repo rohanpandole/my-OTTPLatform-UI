@@ -5,12 +5,12 @@ import {useNavigate} from 'react-router-dom';
 
 const TVShowImages =({ShowId, Title, Description, tvShowImage}) =>{
     const removeTvShow_URL = '/Admin/DeleteTvShowById';
-    const [show, setShow]=useState(false);
-    const handleShow=()=>setShow(true);
+    const [showPopup, setShowPopup]=useState(false);
+    const handleShow=()=>setShowPopup(true);
     const navigate = useNavigate();
     const handleClose=()=>{
         setRecordDeleted('');
-        setShow(false);
+        setShowPopup(false);
         navigate("/TVshown");
     }
     const [recordDeleted, setRecordDeleted]=useState('');    
@@ -36,7 +36,7 @@ const TVShowImages =({ShowId, Title, Description, tvShowImage}) =>{
   <img className="card-img-top" src={tvShowImage} />
   <div className="card-body">
       <button type="button" className="btn btn-dark" onClick={handleShow} >View More</button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={showPopup} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title></Modal.Title>
           </Modal.Header>

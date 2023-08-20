@@ -3,8 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import AuthContext from "../context/AuthProvider";
 import TVShowImages from '../components/TVShowImages'
+import SerachTvShow from '../components/SerachTvShow';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Modal, Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
 const OTTPlatform_URL = '/User/GetAllTvShow';
 const GetTVshow_URL = '/User/GetTvShowByName';
@@ -13,11 +14,23 @@ const saveImage_URL = '/Admin/UploadImage'
 const Lounge = () => {
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [TvShows, setTvShows] = useState([]);
-    const [tvShowName, setTvShowName] = useState('');
+    const [tvShows, setTvShows] = useState([]);
+    const [serachTvShows, setSerachTvShows] = useState('');
+    //const [searchTvShowName, setSearchTvShowName] = useState('');
 
     const logout = async () => {
         setAuth({});
+        navigate('/login');
+    }
+
+    const AddTvShow = async () => {
+        navigate('/addTvShow');
+    }
+
+    const navHome = async () => {
+        navigate('/');
+    }
+    const linkpage = async () => {
         navigate('/linkpage');
     }
 
@@ -27,7 +40,7 @@ const Lounge = () => {
         let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
         const config = {
             headers: { Authorization: token },
-            params: { tvShowName : tvShowName } 
+            params: { tvShowName : serachTvShows } 
         };
 
         const response = await axios.get(
@@ -35,11 +48,9 @@ const Lounge = () => {
             config
         );
         console.log(response?.data);
-        setTvShows(response?.data);
+        setSerachTvShows(response?.data);
 
     }
-
-
 
     const getTVShowList = async (e) => {
         e.preventDefault();
@@ -59,7 +70,7 @@ const Lounge = () => {
     }
 
     const changeHandler = (e) => {
-        setTvShowName(e.target.value);
+        setSerachTvShows(e.target.value);
     }
 
     const handleImage = async (e) =>{
@@ -68,6 +79,9 @@ const Lounge = () => {
         var fileData = e.target.files[0];
         const data = new FormData();
         data.append('img',fileData);
+
+        console.log(fileData);
+        console.log(data);
 
         let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
         const config = {
@@ -84,40 +98,19 @@ const Lounge = () => {
     return (
 
         <>
-            <Navbar bg="dark" expand="lg" variant="dark">
-                <Container fluid>
-                    <Navbar.Brand href="/linkpage">linkpage</Navbar.Brand>
-                    <Navbar.Brand href="/">Home </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbarScroll"></Navbar.Toggle>
 
-                    <Navbar.Collapse id="nabarScroll">
-                        <Nav className="me-auto my-2 my-lg-3" style={{ maxHeight: '100px' }} navbarScroll></Nav>
-                        <Form className="d-flex" onSubmit={searchTVShow} autoComplete="off">
-                            <FormControl
-                                type="search"
-                                placeholder="Movie Search"
-                                className="me-2"
-                                aria-label="search"
-                                name="tvShowName"
-                                value={tvShowName} onChange={changeHandler}></FormControl>
-                            <Button variant="secondary" type="submit">Search TV show</Button>
-                        </Form>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+            <SerachTvShow />
+
+
             <div style={{ justifyContent: 'end' }}>
-
-                <button onClick={getTVShowList}>TV shows</button>
-                <Link to="/">Go To Home</Link>
-                <button onClick={logout}>Sign Out</button>
-                <input type='file' onChange={(e) => handleImage(e)}/>
+                <button onClick={getTVShowList}>Refresh TV shows</button>
             </div>
-
+            <br></br>
             <div >
-                {TvShows.length > 0 ?
+                {tvShows.length > 0 ?
                     (
                         <div className='grid'>
-                            {TvShows.map((tv) =>
+                            {tvShows.map((tv) =>
                                 <TVShowImages key={tv.id} {...tv} />)}
                         </div>)
                     : (
