@@ -1,11 +1,10 @@
 import axios from '../Utility/axios';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import AuthContext from "../context/AuthProvider";
 import TVShowImages from '../components/TVShowImages'
 import SerachTvShow from '../components/SerachTvShow';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Modal, Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
 const OTTPlatform_URL = '/User/GetAllTvShow';
 const GetTVshow_URL = '/User/GetTvShowByName';
@@ -16,7 +15,6 @@ const Lounge = () => {
     const navigate = useNavigate();
     const [tvShows, setTvShows] = useState([]);
     const [serachTvShows, setSerachTvShows] = useState('');
-    //const [searchTvShowName, setSearchTvShowName] = useState('');
 
     const logout = async () => {
         setAuth({});
@@ -47,7 +45,6 @@ const Lounge = () => {
             GetTVshow_URL,
             config
         );
-        console.log(response?.data);
         setSerachTvShows(response?.data);
 
     }
@@ -65,7 +62,6 @@ const Lounge = () => {
             OTTPlatform_URL,
             config
         );
-        console.log(response?.data);
         setTvShows(response?.data);
     }
 
@@ -80,8 +76,6 @@ const Lounge = () => {
         const data = new FormData();
         data.append('img',fileData);
 
-        console.log(fileData);
-        console.log(data);
 
         let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
         const config = {
