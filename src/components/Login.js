@@ -39,6 +39,7 @@ const Login = () => {
                 }
             );
             localStorage.setItem("userToken", JSON.stringify(response.data.AccessToken));
+            localStorage.setItem("UserID", JSON.stringify(response.data.UserID));
 
             const accessToken = response?.data?.AccessToken;
 

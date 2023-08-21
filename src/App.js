@@ -11,6 +11,12 @@ import AddTvShow from './components/AddTvShow';
 import { Routes, Route } from 'react-router-dom';
 import SerachTvShow from './components/SerachTvShow';
 
+const ROLES = {
+  'User': 1,
+  'Editor': 3,
+  'Admin': 1
+}
+
 function App() {
 
   return (
@@ -23,10 +29,12 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* protected routes */}
+        {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        </Route> */}
+        <Route path="addTvShow" element={<AddTvShow />} />
         <Route element ={<RequireAuth />}>
         <Route path="/" element={<Home />} />
         <Route path="tvShown" element={<Lounge />} />
-        <Route path="addTvShow" element={<AddTvShow />} />
         <Route path="serachTvShow" element={<SerachTvShow />} />
         </Route>
 
