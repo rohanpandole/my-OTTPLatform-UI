@@ -13,6 +13,7 @@ const Home = () => {
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
     const [tvShows, setTvShows] = useState([]);
+    const [isGotTVList, setIsGotTVList] = useState(false);
 
     const getTVShowList = async (e) => {
         e.preventDefault();
@@ -28,6 +29,7 @@ const Home = () => {
             config
         );
         setTvShows(response?.data);
+        setIsGotTVList(true);
     }
 
     return (
@@ -47,8 +49,10 @@ const Home = () => {
                                 <TVShowImages key={tv.id} {...tv} />)}
                         </div>)
                     : (
-                        <h2 style={{ backgroundColor: "GrayText" }}>Sorry !! No Movies Found</h2>
-                    )}
+                        isGotTVList
+                            ?(<h2 style={{ color: 'antiquewhite' }}>Sorry !! No Movies Found</h2>)
+                            :(<h2 style={{ color: 'antiquewhite' }}>Click Refresh to get new TV show list</h2>)
+                    )}                    
             </div>
         
         </>
