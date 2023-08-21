@@ -5,13 +5,15 @@ import AuthContext from "../context/AuthProvider";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Navbar, Form, FormControl, Button } from 'react-bootstrap';
 
-const SerachTvShow = () => {
+const SearchTvShow = () => {
 
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
+    let UserID = JSON.parse(localStorage.getItem('UserID'));
+    const markTvShow_URL = '/User/MarkTvShowById';
 
-    const [serachTvShows, setSerachTvShows] = useState('');
-    const [serachTvShowsData, setSerachTvShowsdata] = useState('');
+    const [searchTvShows, setSearchTvShows] = useState('');
+    const [searchTvShowsData, setSearchTvShowsData] = useState('');
     const [closePopup, setClosePopup] = useState(false);
     const [errMsg, setErrMsg] = useState('');
     const errRef = useRef();
@@ -26,9 +28,8 @@ const SerachTvShow = () => {
     const navHome = async () => {
         navigate('/');
     }
-    const linkpage = async () => {
-        navigate('/linkpage');
-    }
+    const [isReplay, setReplay]=useState(false);   
+
     const GetTVshow_URL = '/User/GetTvShowByName';
     const searchTVShow = async (e) => {
         e.preventDefault();
@@ -36,7 +37,7 @@ const SerachTvShow = () => {
         let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
         const config = {
             headers: { Authorization: token },
-            params: { tvShowName : serachTvShows } 
+            params: { tvShowName : searchTvShows } 
         };
 
         try{
@@ -46,7 +47,7 @@ const SerachTvShow = () => {
             config
         );
 
-        setSerachTvShowsdata(response?.data);
+        setSearchTvShowsData(response?.data);
         setClosePopup(true);
 
     } catch (err) {
@@ -59,7 +60,7 @@ const SerachTvShow = () => {
     }
     }
     const changeHandler = (e) => {
-        setSerachTvShows(e.target.value);
+        setSearchTvShows(e.target.value);
 
     }
 
@@ -67,12 +68,30 @@ const SerachTvShow = () => {
         setClosePopup(false);
     }
 
+    const playTVShow = async(e) =>
+    {
+        e.preventDefault();
+        let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
+        let UserID = JSON.parse(localStorage.getItem('UserID'));
+        const config = {
+            headers: { Authorization: token , 'Content-Type': 'application/json'},
+        };        
+        const response = await axios.post(
+            markTvShow_URL,
+            JSON.stringify({
+                "showId": searchTvShowsData.ShowId, 
+                "UserID":UserID
+            }),
+            config
+        );
+        setReplay(true);
+    }
+
     return (
         <>
 
         <Navbar bg="dark" expand="lg" variant="dark">
-                <Navbar.Brand><button onClick={linkpage}>linkpage</button></Navbar.Brand>
-                <Navbar.Brand><button onClick={navHome}>Home</button></Navbar.Brand>
+                {UserID == 2 &&( <Navbar.Brand><button onClick={navHome}>Home</button></Navbar.Brand> )}
                 <div class="container">
 
                 <Form className="d-flex" onSubmit={searchTVShow} autoComplete="off">
@@ -82,12 +101,12 @@ const SerachTvShow = () => {
                             className="me-2"
                             aria-label="search"
                             name="tvShowName"
-                            value={serachTvShows} onChange={changeHandler}></FormControl>
+                            value={searchTvShows} onChange={changeHandler}></FormControl>
                         <Button variant="secondary" type="submit">Search TV show</Button>
                     </Form>
                 </div>
                 <Navbar.Brand >
-                <button onClick={AddTvShow}>AddTvShow</button>
+                {UserID == 2 &&( <button onClick={AddTvShow}>AddTvShow</button> )}
                 </Navbar.Brand>
                 <Navbar.Brand >
                 <button onClick={logout}>Sign Out</button>
@@ -97,7 +116,7 @@ const SerachTvShow = () => {
 
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
 
-        {serachTvShowsData &&
+        {searchTvShowsData &&
          (
          <div>
             <Modal show={closePopup} onClick={handleClose}>
@@ -105,11 +124,15 @@ const SerachTvShow = () => {
             <Modal.Title></Modal.Title>
             </Modal.Header>
             <Modal.Body> 
-                <img className="card-img-top" style={{ width: '14rem' }} src={serachTvShowsData.tvShowImage} />
-                <h3>{serachTvShowsData.Title}</h3>
-                <p>{serachTvShowsData.Description}</p>
+                <img className="card-img-top" style={{ width: '14rem' }} src={searchTvShowsData.tvShowImage} />
+                <h3>{searchTvShowsData.Title}</h3>
+                <p>{searchTvShowsData.Description}</p>
              </Modal.Body>
             <Modal.Footer>
+            {isReplay 
+                ? (<Button variant="secondary">Replay</Button>) 
+                :(<Button variant="secondary" onClick={playTVShow}>Play</Button>)
+            }
                  <Button variant="secondary" onClick={handleClose}>Close</Button>
             </Modal.Footer>
         </Modal>
@@ -119,4 +142,4 @@ const SerachTvShow = () => {
     )
 }
 
-export default SerachTvShow
+export default SearchTvShow

@@ -1,11 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 import axios from '../Utility/axios';
+import { useNavigate} from "react-router-dom";
+import SearchTvShow from '../components/SearchTvShow';
 
 const REGISTER_URL = '/Admin/AddTvShow';
 
 const AddTvShow = () => {
     const userRef = useRef();
     const errRef = useRef();
+    const navigate = useNavigate();
 
 
     const [title, setTitle] = useState('');
@@ -61,16 +64,24 @@ const AddTvShow = () => {
         }
     }
 
+    const navHome = async () => {
+        navigate('/');
+    }
+
     return (
         <>
+         <SearchTvShow />
             {success 
             ? (
+                <div className="App">
                 <section>
                     <h1 style={{ color: 'chartreuse' }}>Successfully added tv show</h1>
                     <p>
-                        <a href="/">Home</a>
+                    <button onClick={navHome}>Home</button>
                     </p>
                 </section>
+                </div>
+                
             ) 
             : (  
                 <div className="App">

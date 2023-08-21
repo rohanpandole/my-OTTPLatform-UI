@@ -15,6 +15,9 @@ const TVShowImages =({ShowId, Title, Description, tvShowImage}) =>{
         navigate("/TVshown");
     }
     const [recordDeleted, setRecordDeleted]=useState('');    
+    const [isReplay, setReplay]=useState(false);   
+    let UserID = JSON.parse(localStorage.getItem('UserID'));
+
     const removeTVShow = async (e) =>{
         e.preventDefault();
         let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
@@ -45,6 +48,7 @@ const TVShowImages =({ShowId, Title, Description, tvShowImage}) =>{
             }),
             config
         );
+        setReplay(true);
     }
     return(
 
@@ -65,8 +69,10 @@ const TVShowImages =({ShowId, Title, Description, tvShowImage}) =>{
           </Modal.Body>
           {recordDeleted && ( <h1>{recordDeleted}</h1>)}
           <Modal.Footer>
-              <Button variant="secondary" onClick={playTVShow}>Play</Button>
-              <Button variant="secondary" onClick={removeTVShow}>Remove Show</Button>
+          {isReplay 
+          ? (<Button variant="secondary">Replay</Button>) 
+          :(<Button variant="secondary" onClick={playTVShow}>Play</Button>)}
+              {UserID == 2 &&( <Button variant="secondary" onClick={removeTVShow}>Remove Show</Button> )}
               <Button variant="secondary" onClick={handleClose}>Close</Button>
           </Modal.Footer>
       </Modal>

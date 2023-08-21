@@ -4,12 +4,12 @@ import Home from './components/Home';
 import Layout from './components/Layout';
 import Missing from './components/Missing';
 import Unauthorized from './components/Unauthorized';
-import Lounge from './components/TVShow';
+import TVshown from './components/TVShow';
 import LinkPage from './components/LinkPage';
 import RequireAuth from './components/RequireAuth';
 import AddTvShow from './components/AddTvShow';
 import { Routes, Route } from 'react-router-dom';
-import SerachTvShow from './components/SerachTvShow';
+import SearchTvShow from './components/SearchTvShow';
 
 const ROLES = {
   'User': 1,
@@ -34,8 +34,8 @@ function App() {
         <Route path="addTvShow" element={<AddTvShow />} />
         <Route element ={<RequireAuth />}>
         <Route path="/" element={<Home />} />
-        <Route path="tvShown" element={<Lounge />} />
-        <Route path="serachTvShow" element={<SerachTvShow />} />
+        <Route path="TVshown" element={<TVshown />} />
+        <Route path="searchTVShow" element={<SearchTvShow />} />
         </Route>
 
         {/* catch all */}

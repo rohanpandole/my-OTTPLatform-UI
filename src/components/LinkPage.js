@@ -9,7 +9,7 @@ const LinkPage = () => {
             <br />
             <Link to="/login">Login</Link>
             <Link to="/register">Register</Link>
-            <Link to="/TVshown">TV shows</Link>
+            <Link to="/tvShow">TV shows</Link>
             <Link to="/">Home</Link>
         </section>
         </div>

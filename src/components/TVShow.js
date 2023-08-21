@@ -1,12 +1,12 @@
 import axios from '../Utility/axios';
 import {useState } from "react";
 import TVShowImages from '../components/TVShowImages'
-import SerachTvShow from '../components/SerachTvShow';
+import SearchTvShow from '../components/SearchTvShow';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const OTTPlatform_URL = '/User/GetAllTvShow';
 
-const Lounge = () => {
+const TVshown = () => {
 
     const [tvShows, setTvShows] = useState([]);
 
@@ -28,8 +28,7 @@ const Lounge = () => {
     return (
 
         <>
-
-            <SerachTvShow />
+            <SearchTvShow />
 
 
             <div style={{ justifyContent: 'end' }}>
@@ -52,4 +51,4 @@ const Lounge = () => {
     )
 }
 
-export default Lounge;
+export default TVshown;
