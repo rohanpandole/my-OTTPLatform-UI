@@ -116,9 +116,9 @@ const Register = () => {
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Register</h1>
+                    <h1 style={{ color: 'antiquewhite' }}>Register</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">
+                        <label style={{ color: 'antiquewhite' }} htmlFor="username">
                             Username:
                             <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validName || !UserName ? "hide" : "invalid"} />
@@ -136,7 +136,7 @@ const Register = () => {
                             onFocus={() => setUserFocus(true)}
                             onBlur={() => setUserFocus(false)}
                         />
-                        <p id="uidnote" className={userFocus && UserName && !validName ? "instructions" : "offscreen"}>
+                        <p id="uidnote" style={{ color: 'antiquewhite' }} className={userFocus && UserName && !validName ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             4 to 24 characters.<br />
                             Must begin with a letter.<br />
@@ -144,7 +144,7 @@ const Register = () => {
                         </p>
 
 
-                        <label htmlFor="password">
+                        <label style={{ color: 'antiquewhite' }} htmlFor="password">
                             Password:
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd || !Password ? "hide" : "invalid"} />
@@ -160,7 +160,7 @@ const Register = () => {
                             onFocus={() => setPwdFocus(true)}
                             onBlur={() => setPwdFocus(false)}
                         />
-                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                        <p id="pwdnote" style={{ color: 'antiquewhite' }} className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             8 to 24 characters.<br />
                             Must include uppercase and lowercase letters, a number and a special character.<br />
@@ -168,7 +168,7 @@ const Register = () => {
                         </p>
 
 
-                        <label htmlFor="confirm_pwd">
+                        <label style={{ color: 'antiquewhite' }} htmlFor="confirm_pwd">
                             Confirm Password:
                             <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
@@ -184,12 +184,12 @@ const Register = () => {
                             onFocus={() => setMatchFocus(true)}
                             onBlur={() => setMatchFocus(false)}
                         />
-                        <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                        <p id="confirmnote" style={{ color: 'antiquewhite' }} className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
 
-                        <label htmlFor="email">
+                        <label style={{ color: 'antiquewhite' }} htmlFor="email">
                             Email:
                             <FontAwesomeIcon icon={faCheck} className={validemail ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validemail || !email ? "hide" : "invalid"} />
@@ -207,14 +207,14 @@ const Register = () => {
                             onFocus={() => setEmailFocus(true)}
                             onBlur={() => setEmailFocus(false)}
                         />
-                        <p id="emailnote" className={emailFocus && email && !validemail ? "instructions" : "offscreen"}>
+                        <p id="emailnote" style={{ color: 'antiquewhite' }} className={emailFocus && email && !validemail ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             4 to 24 characters.<br />
                             Must begin with a letter.<br />
                             Letters, numbers, underscores, hyphens allowed.
                         </p>
 
-                        <label htmlFor="phoneNumber">
+                        <label style={{ color: 'antiquewhite' }} htmlFor="phoneNumber">
                             PhoneNumber:
                         </label>
                         <input
@@ -232,7 +232,7 @@ const Register = () => {
                         />
                         <button disabled={!validemail || !validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
                     </form>
-                    <p>
+                    <p style={{ color: 'antiquewhite' }}>
                         Already registered?<br />
                         <span className="line">
                             <Link to="/">Sign In</Link>

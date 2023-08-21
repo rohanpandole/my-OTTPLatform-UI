@@ -1,53 +1,14 @@
 import axios from '../Utility/axios';
-import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import AuthContext from "../context/AuthProvider";
+import {useState } from "react";
 import TVShowImages from '../components/TVShowImages'
 import SerachTvShow from '../components/SerachTvShow';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const OTTPlatform_URL = '/User/GetAllTvShow';
-const GetTVshow_URL = '/User/GetTvShowByName';
-const saveImage_URL = '/Admin/UploadImage'
 
 const Lounge = () => {
-    const { setAuth } = useContext(AuthContext);
-    const navigate = useNavigate();
+
     const [tvShows, setTvShows] = useState([]);
-    const [serachTvShows, setSerachTvShows] = useState('');
-
-    const logout = async () => {
-        setAuth({});
-        navigate('/login');
-    }
-
-    const AddTvShow = async () => {
-        navigate('/addTvShow');
-    }
-
-    const navHome = async () => {
-        navigate('/');
-    }
-    const linkpage = async () => {
-        navigate('/linkpage');
-    }
-
-    const searchTVShow = async (e) => {
-        e.preventDefault();
-
-        let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
-        const config = {
-            headers: { Authorization: token },
-            params: { tvShowName : serachTvShows } 
-        };
-
-        const response = await axios.get(
-            GetTVshow_URL,
-            config
-        );
-        setSerachTvShows(response?.data);
-
-    }
 
     const getTVShowList = async (e) => {
         e.preventDefault();
@@ -64,31 +25,6 @@ const Lounge = () => {
         );
         setTvShows(response?.data);
     }
-
-    const changeHandler = (e) => {
-        setSerachTvShows(e.target.value);
-    }
-
-    const handleImage = async (e) =>{
-        e.preventDefault();
-
-        var fileData = e.target.files[0];
-        const data = new FormData();
-        data.append('img',fileData);
-
-
-        let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
-        const config = {
-            headers: { Authorization: token, 'Content-Type': 'multipart/form-data' }
-        };
-
-        const response = await axios.post(
-            saveImage_URL,
-            data,
-            config
-        );
-    }
-
     return (
 
         <>

@@ -15,9 +15,6 @@ const SerachTvShow = () => {
     const [closePopup, setClosePopup] = useState(false);
     const [errMsg, setErrMsg] = useState('');
     const errRef = useRef();
-
-    let showpopUp;
-    let searchDataAPI;
     
     const logout = async () => {
         setAuth({});

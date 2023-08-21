@@ -1,7 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import axios from '../Utility/axios';
-import { Link } from "react-router-dom";
-//import {SaveMode} from '../model/SaveMode';
 
 const REGISTER_URL = '/Admin/AddTvShow';
 
@@ -9,7 +7,6 @@ const AddTvShow = () => {
     const userRef = useRef();
     const errRef = useRef();
 
-    //const [aaa, seta] = useState<SaveMode>(null);
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -36,12 +33,6 @@ const AddTvShow = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(title);
-            console.log(description);
-            console.log(episodeTimeDuration);
-            console.log(success);
-            console.log(errMsg);
-            console.log(errMsg);
 
             let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
 
@@ -116,7 +107,7 @@ const AddTvShow = () => {
 
                                 <label style={{ color: 'antiquewhite' }}>Select image:</label>
                                 <span>
-                                    <input type='file' onChange={(e) => handleImage(e)}/>
+                                    <input style={{ color: 'antiquewhite' }} type='file' onChange={(e) => handleImage(e)}/>
                                 </span>
                                 <br></br>
 

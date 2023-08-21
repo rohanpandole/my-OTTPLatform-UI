@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import axios from '../Utility/axios';
 const LOGIN_URL = '/Auth/VerifyUserGenerateTocken';
@@ -9,8 +9,6 @@ const Login = () => {
     const { setAuth } = useAuth();
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
 
     const userRef = useRef();
     const errRef = useRef();
@@ -65,9 +63,9 @@ const Login = () => {
         <div className="App">
             <section>
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                <h1>Sign In</h1>
+                <h1 style={{ color: 'antiquewhite' }}>Sign In</h1>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username:</label>
+                    <label style={{ color: 'antiquewhite' }} htmlFor="username">Username:</label>
                     <input
                         type="text"
                         id="username"
@@ -78,7 +76,7 @@ const Login = () => {
                         required
                     />
 
-                    <label htmlFor="password">Password:</label>
+                    <label style={{ color: 'antiquewhite' }} htmlFor="password">Password:</label>
                     <input
                         type="password"
                         id="password"
@@ -88,7 +86,7 @@ const Login = () => {
                     />
                     <button>Sign In</button>
                 </form>
-                <p>
+                <p style={{ color: 'antiquewhite' }}>
                     Need an Account?<br />
                     <span className="line">
                         <Link to="/register">Sign Up</Link>
