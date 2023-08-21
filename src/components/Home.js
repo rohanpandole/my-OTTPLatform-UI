@@ -6,7 +6,9 @@ import {useState } from "react";
 import TVShowImages from '../components/TVShowImages'
 import SearchTvShow from '../components/SearchTvShow';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import WatchedList from '../components/WatchedList'
+			
+const GetWatchedList_URL = '/User/GetMyAllWatchedEpisods';
 const OTTPlatform_URL = '/User/GetAllTvShow';
 
 const Home = () => {
@@ -14,6 +16,7 @@ const Home = () => {
     const navigate = useNavigate();
     const [tvShows, setTvShows] = useState([]);
     const [isGotTVList, setIsGotTVList] = useState(false);
+    const [watchedTVShow, setWatchedTVShow] = useState([]);
 
     const getTVShowList = async (e) => {
         e.preventDefault();
@@ -32,6 +35,25 @@ const Home = () => {
         setIsGotTVList(true);
     }
 
+    const getWatchedTVShowList = async (e) => {
+        e.preventDefault();
+
+        let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
+        let UserID = JSON.parse(localStorage.getItem('UserID'));
+
+        const config = {
+            headers: { Authorization: token },
+            params: { "UserID":UserID }
+        };
+
+        const response = await axios.get(
+            GetWatchedList_URL,
+            config
+        );
+
+        setWatchedTVShow(response?.data);
+		}
+
     return (
         <>
             <SearchTvShow />
@@ -39,6 +61,7 @@ const Home = () => {
 
             <div style={{ justifyContent: 'end' }}>
                 <button onClick={getTVShowList}>Refresh TV shows</button>
+                <button onClick={getWatchedTVShowList}>My Watched list</button>
             </div>
             <br></br>
             <div >
@@ -55,6 +78,15 @@ const Home = () => {
                     )}                    
             </div>
         
+            <div>
+            {watchedTVShow.length > 0 && 
+                    (
+                    <div className='grid'>
+                    {watchedTVShow.map((tv) =>
+                        <WatchedList key={tv.id} {...tv} />)}
+                </div>)}
+            </div>
+            
         </>
     )
 }
