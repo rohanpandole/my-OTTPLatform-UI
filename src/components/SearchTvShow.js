@@ -1,11 +1,11 @@
 import axios from '../Utility/axios';
 import { useNavigate} from "react-router-dom";
-import { useContext, useState, useRef } from "react";
+import React,{ useContext, useState, useRef } from "react";
 import AuthContext from "../context/AuthProvider";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Navbar, Form, FormControl, Button } from 'react-bootstrap';
 
-const SearchTvShow = () => {
+const SearchTvShow = (props) => {
 
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -30,9 +30,9 @@ const SearchTvShow = () => {
     }
     const [isReplay, setReplay]=useState(false);   
 
-    const GetTVshow_URL = '/User/GetTvShowByName';
+    const SearchTVshow_URL = '/User/SearchTvShowByName';
     const searchTVShow = async (e) => {
-        e.preventDefault();
+        e.preventDefault();       
 
         let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
         const config = {
@@ -40,16 +40,15 @@ const SearchTvShow = () => {
             params: { tvShowName : searchTvShows } 
         };
 
-        try{
-            
-        const response = await axios.get(
-            GetTVshow_URL,
+    try{
+            const response = await axios.get(
+            SearchTVshow_URL,
             config
         );
 
-        setSearchTvShowsData(response?.data);
-        setClosePopup(true);
-
+       console.log(response?.data);
+       props.handleMySerachData(response.data.Tvshows);
+       
     } catch (err) {
         if (!err?.response) {
             setErrMsg('No Server Response');
@@ -89,10 +88,9 @@ const SearchTvShow = () => {
 
     return (
         <>
-
         <Navbar bg="dark" expand="lg" variant="dark">
                 {UserID == 2 &&( <Navbar.Brand><button onClick={navHome}>Home</button></Navbar.Brand> )}
-                <div class="container">
+                <div className="container">
 
                 <Form className="d-flex" onSubmit={searchTVShow} autoComplete="off">
                         <FormControl
@@ -116,7 +114,7 @@ const SearchTvShow = () => {
 
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
 
-        {searchTvShowsData &&
+        {/* {searchTvShowsData &&
          (
          <div>
             <Modal show={closePopup} onClick={handleClose}>
@@ -137,9 +135,9 @@ const SearchTvShow = () => {
             </Modal.Footer>
         </Modal>
          </div>
-         )}
+         )} */}
         </>
     )
 }
 
-export default SearchTvShow
+export default SearchTvShow;

@@ -3,7 +3,7 @@ import useAuth from '../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 
 import axios from '../Utility/axios';
-const LOGIN_URL = '/Auth/VerifyUserGenerateTocken';
+const LOGIN_URL = '/Auth/VerifyUserGenerateToken';
 
 const Login = () => {
     const { setAuth } = useAuth();
@@ -36,10 +36,10 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            localStorage.setItem("userToken", JSON.stringify(response.data.AccessToken));
-            localStorage.setItem("UserID", JSON.stringify(response.data.UserID));
+            localStorage.setItem("userToken", JSON.stringify(response.data.UserJWTDetail.AccessToken));
+            localStorage.setItem("UserID", JSON.stringify(response.data.UserJWTDetail.UserID));
 
-            const accessToken = response?.data?.AccessToken;
+            const accessToken = response?.data?.UserJWTDetail.AccessToken;
 
             setAuth({ userName, password, accessToken });
             setUser('');

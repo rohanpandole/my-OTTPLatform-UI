@@ -12,7 +12,6 @@ const WatchedList =({ShowId, Title, Description, tvShowImage}) =>{
     const handleClose=()=>{
         setRecordDeleted('');
         setShowPopup(false);
-        navigate("/TVshown");
     }
     const [recordDeleted, setRecordDeleted]=useState('');    
     const [isReplay, setReplay]=useState(false);   

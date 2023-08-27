@@ -3,7 +3,7 @@ import axios from '../Utility/axios';
 import { useNavigate} from "react-router-dom";
 import SearchTvShow from '../components/SearchTvShow';
 
-const REGISTER_URL = '/Admin/AddTvShow';
+const ADDNEWTVSHOW_URL = '/Admin/AddTvShow';
 
 const AddTvShow = () => {
     const userRef = useRef();
@@ -39,14 +39,14 @@ const AddTvShow = () => {
 
             let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
 
-            const response = await axios.post(REGISTER_URL,
+            const response = await axios.post(ADDNEWTVSHOW_URL,
                 fileData,
                 {
                     headers: { Authorization: token, 'Content-Type': 'multipart/form-data'
                 },
                     withCredentials: true
                 }
-            );                
+            );    
 
             setSuccess(true);
             setTitle('');

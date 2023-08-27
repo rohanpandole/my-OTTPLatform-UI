@@ -31,7 +31,8 @@ const Home = () => {
             OTTPlatform_URL,
             config
         );
-        setTvShows(response?.data);
+        setTvShows(response?.data.Tvshows);
+        setWatchedTVShow('');
         setIsGotTVList(true);
     }
 
@@ -50,15 +51,17 @@ const Home = () => {
             GetWatchedList_URL,
             config
         );
-
-        setWatchedTVShow(response?.data);
+        setWatchedTVShow(response?.data.Tvshows);
+        setTvShows('');
 		}
+        
+        const handleSerachData = (e) =>{
+            setTvShows(e);
+        }
 
     return (
         <>
-            <SearchTvShow />
-
-
+            <SearchTvShow handleMySerachData ={handleSerachData}/>
             <div style={{ justifyContent: 'end' }}>
                 <button onClick={getTVShowList}>Refresh TV shows</button>
                 <button onClick={getWatchedTVShowList}>My Watched list</button>
@@ -76,7 +79,7 @@ const Home = () => {
                             ?(<h2 style={{ color: 'antiquewhite' }}>Sorry !! No Movies Found</h2>)
                             :(<h2 style={{ color: 'antiquewhite' }}>Click Refresh to get new TV show list</h2>)
                     )}                    
-            </div>
+            </div>            
         
             <div>
             {watchedTVShow.length > 0 && 

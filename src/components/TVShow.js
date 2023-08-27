@@ -28,9 +28,6 @@ const TVshown = () => {
     return (
 
         <>
-            <SearchTvShow />
-
-
             <div style={{ justifyContent: 'end' }}>
                 <button onClick={getTVShowList}>Refresh TV shows</button>
             </div>
