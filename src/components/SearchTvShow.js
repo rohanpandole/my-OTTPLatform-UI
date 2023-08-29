@@ -89,7 +89,7 @@ const SearchTvShow = (props) => {
     return (
         <>
         <Navbar bg="dark" expand="lg" variant="dark">
-                {UserID == 2 &&( <Navbar.Brand><button onClick={navHome}>Home</button></Navbar.Brand> )}
+                {UserID == 2 &&( <Navbar.Brand><button className="btn btn-primary" onClick={navHome}>Home</button></Navbar.Brand> )}
                 <div className="container">
 
                 <Form className="d-flex" onSubmit={searchTVShow} autoComplete="off">
@@ -100,42 +100,20 @@ const SearchTvShow = (props) => {
                             aria-label="search"
                             name="tvShowName"
                             value={searchTvShows} onChange={changeHandler}></FormControl>
-                        <Button variant="secondary" type="submit">Search TV show</Button>
+                        <Button className="btn btn-primary mt-2" variant="secondary" type="submit">Search TV show</Button>
                     </Form>
                 </div>
                 <Navbar.Brand >
-                {UserID == 2 &&( <button onClick={AddTvShow}>AddTvShow</button> )}
+                {UserID == 2 &&( <button className="btn btn-primary" onClick={AddTvShow}>AddTvShow</button> )}
                 </Navbar.Brand>
                 <Navbar.Brand >
-                <button onClick={logout}>Sign Out</button>
+                <button className="btn btn-primary" onClick={logout}>Sign Out</button>
                 </Navbar.Brand>
                 
         </Navbar>
 
         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
 
-        {/* {searchTvShowsData &&
-         (
-         <div>
-            <Modal show={closePopup} onClick={handleClose}>
-            <Modal.Header closeButton>
-            <Modal.Title></Modal.Title>
-            </Modal.Header>
-            <Modal.Body> 
-                <img className="card-img-top" style={{ width: '14rem' }} src={searchTvShowsData.tvShowImage} />
-                <h3>{searchTvShowsData.Title}</h3>
-                <p>{searchTvShowsData.Description}</p>
-             </Modal.Body>
-            <Modal.Footer>
-            {isReplay 
-                ? (<Button variant="secondary">Replay</Button>) 
-                :(<Button variant="secondary" onClick={playTVShow}>Play</Button>)
-            }
-                 <Button variant="secondary" onClick={handleClose}>Close</Button>
-            </Modal.Footer>
-        </Modal>
-         </div>
-         )} */}
         </>
     )
 }

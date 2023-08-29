@@ -3,13 +3,14 @@ import { Modal,Button} from 'react-bootstrap';
 import axios from '../Utility/axios';
 import {useNavigate} from 'react-router-dom';
 
-const TVShowImages =({ShowId, Title, Description, tvShowImage}) =>{
+const TVShowImages =({ShowId, Title, Description, tvShowImage, HandleTvShowList}) =>{
     const removeTvShow_URL = '/Admin/DeleteTvShowById';
     const markTvShow_URL = '/User/MarkTvShowById';
     const [showPopup, setShowPopup]=useState(false);
     const handleShow=()=>setShowPopup(true);
     const navigate = useNavigate();
     const handleClose=()=>{
+        HandleTvShowList();
         setRecordDeleted('');
         setShowPopup(false);
     }
@@ -71,7 +72,7 @@ const TVShowImages =({ShowId, Title, Description, tvShowImage}) =>{
           {isReplay 
           ? (<Button variant="secondary">Replay</Button>) 
           :(<Button variant="secondary" onClick={playTVShow}>Play</Button>)}
-              {UserID == 2 &&( <Button variant="secondary" onClick={removeTVShow}>Remove Show</Button> )}
+          {!recordDeleted && (UserID == 2 &&( <Button variant="secondary" onClick={removeTVShow}>Remove Show</Button> ))}
               <Button variant="secondary" onClick={handleClose}>Close</Button>
           </Modal.Footer>
       </Modal>

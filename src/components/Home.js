@@ -2,7 +2,7 @@ import { useNavigate} from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import axios from '../Utility/axios';
-import {useState } from "react";
+import {useState, useEffect } from "react";
 import TVShowImages from '../components/TVShowImages'
 import SearchTvShow from '../components/SearchTvShow';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,6 +17,10 @@ const Home = () => {
     const [tvShows, setTvShows] = useState([]);
     const [isGotTVList, setIsGotTVList] = useState(false);
     const [watchedTVShow, setWatchedTVShow] = useState([]);
+
+    useEffect(() => {
+        HandleTvShowList();
+      }, []);
 
     const getTVShowList = async (e) => {
         e.preventDefault();
@@ -59,12 +63,30 @@ const Home = () => {
             setTvShows(e);
         }
 
+        const HandleTvShowList = async () =>{
+            let token = "Bearer " + JSON.parse(localStorage.getItem('userToken'));
+
+        const config = {
+            headers: { Authorization: token }
+        };
+
+        const response = await axios.get(
+            OTTPlatform_URL,
+            config
+        );
+        setTvShows(response?.data.Tvshows);
+        setWatchedTVShow('');
+        setIsGotTVList(true);
+        }
+
     return (
         <>
             <SearchTvShow handleMySerachData ={handleSerachData}/>
-            <div style={{ justifyContent: 'end' }}>
-                <button onClick={getTVShowList}>Refresh TV shows</button>
+            <div class="row g-0">
+                <div class="col-sm-6 col-md-8"><div style={{ justifyContent: 'end'}}>                
                 <button onClick={getWatchedTVShowList}>My Watched list</button>
+            </div>
+            </div>
             </div>
             <br></br>
             <div >
@@ -72,7 +94,7 @@ const Home = () => {
                     (
                         <div className='grid'>
                             {tvShows.map((tv) =>
-                                <TVShowImages key={tv.id} {...tv} />)}
+                                <TVShowImages key={tv.id} {...tv} HandleTvShowList={HandleTvShowList} />)}
                         </div>)
                     : (
                         isGotTVList
