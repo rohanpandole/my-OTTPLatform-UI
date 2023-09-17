@@ -3,7 +3,7 @@ import { Modal,Button} from 'react-bootstrap';
 import axios from '../Utility/axios';
 import {useNavigate} from 'react-router-dom';
 
-const WatchedList =({ShowId, Title, Description, tvShowImage}) =>{
+const WatchedList =({ShowId, Title, Description, TvShowImage}) =>{
     const removeTvShow_URL = '/Admin/DeleteTvShowById';
     const markTvShow_URL = '/User/MarkTvShowById';
     const [showPopup, setShowPopup]=useState(false);
@@ -54,7 +54,7 @@ const WatchedList =({ShowId, Title, Description, tvShowImage}) =>{
 <>
 <div className="card text-center bg-secondary mb-3">
 <div className="card-body">
-  <img className="card-img-top" src={tvShowImage} />
+  <img className="card-img-top" src={TvShowImage} />
   <div className="card-body">
       <button type="button" className="btn btn-dark" onClick={handleShow} >View More</button>
       <Modal show={showPopup} onHide={handleClose}>
@@ -62,7 +62,7 @@ const WatchedList =({ShowId, Title, Description, tvShowImage}) =>{
             <Modal.Title></Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <img className="card-img-top" style={{width:'14rem'}}src={tvShowImage} />
+          <img className="card-img-top" style={{width:'14rem'}}src={TvShowImage} />
           <h3>{Title}</h3>
           <p>{Description}</p>
           </Modal.Body>
